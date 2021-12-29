@@ -1,5 +1,15 @@
 # Getting Started with Create React App
 
+add this file to package.json
+
+/////////////////////////////////////////////////////////////////////->
+"homepage": "https://atulbansalofficial.github.io/todolistnewreact",
+
+"predeploy": "npm run build",
+"deploy": "gh-pages -b publish -d build",
+
+/////////////////////////////////////////////////////////////////////->
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -68,4 +78,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-"# repo" 
+"# repo"
