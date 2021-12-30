@@ -14,21 +14,55 @@ const GetLocalItems = () => {
 function Todo() {
   const [inputData, setInputData] = useState("");
   const [item, setItem] = useState(GetLocalItems());
+  const [toggleSubmit, setToggleSubmit] = useState(true);
+  const [isEditItem, setIsEditItem] = useState(null);
+
   //add item
   const addItem = () => {
     if (!inputData) {
       alert("Please Enter item...");
+    } else if (inputData && !toggleSubmit) {
+      setItem(
+        item.map((element) => {
+          if (element.id === isEditItem) {
+            return { ...element, name: inputData };
+          }
+          return element;
+        })
+      );
+      setToggleSubmit(true);
+      setInputData("");
+      setIsEditItem("null");
     } else {
-      setItem([...item, inputData]);
+      const allInputData = {
+        id: new Date().getTime().toString(),
+        name: inputData,
+      };
+      console.log(allInputData);
+
+      setItem([...item, allInputData]);
       setInputData("");
     }
   };
   //delete item
-  const deleteItem = (id) => {
-    console.log(id);
-    const updateditem = item.filter((__, index) => index != id);
-    console.log(updateditem);
+  const deleteItem = (index) => {
+    console.log(index);
+
+    const updateditem = item.filter((element) => index !== element.id);
+
     setItem(updateditem);
+  };
+
+  //edit item
+
+  const editItem = (id) => {
+    let newEditItem = item.find((element) => {
+      return element.id === id;
+    });
+    setToggleSubmit(false);
+    setInputData(newEditItem.name);
+
+    setIsEditItem(id);
   };
   // clear all list
   const removeAll = () => {
@@ -58,24 +92,52 @@ function Todo() {
             value={inputData}
             onChange={(e) => setInputData(e.target.value)}
           />
-          <i
-            className="fa fa-plus add-btn"
-            title="Add Item"
-            style={{ marginLeft: "10px", color: "white" }}
-            onClick={addItem}
-          ></i>
+
+          {toggleSubmit ? (
+            <i
+              className="fa fa-plus add-btn"
+              title="Add Item"
+              style={{ marginLeft: "10px", color: "white" }}
+              onClick={addItem}
+            ></i>
+          ) : (
+            <i
+              className="fa fa-edit add-btn"
+              title="update Item"
+              style={{ marginLeft: "10px", color: "white" }}
+              onClick={addItem}
+            ></i>
+          )}
         </div>
         <div className="showItem">
-          {item.map((element, index) => {
+          {item.map((element) => {
             return (
-              <div className="eachItem" key={index}>
-                <h3>
-                  {element}
+              <div
+                className="eachItem"
+                style={{ background: "#7F8545" }}
+                key={element.id}
+              >
+                <h3 style={{ color: "white" }}>
+                  {element.name}
+                  <i
+                    className="far fa-edit add-btn"
+                    title="Edit Item"
+                    style={{
+                      marginLeft: "10px",
+                      color: "green",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => editItem(element.id)}
+                  ></i>
                   <i
                     className="far fa-trash-alt add-btn"
                     title="Delete Item"
-                    style={{ marginLeft: "10px", color: "white" }}
-                    onClick={() => deleteItem(index)}
+                    style={{
+                      marginLeft: "10px",
+                      color: "red",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => deleteItem(element.id)}
                   ></i>
                 </h3>
               </div>
