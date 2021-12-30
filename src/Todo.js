@@ -3,7 +3,6 @@ import logo from "./logo.svg";
 
 const GetLocalItems = () => {
   let list = localStorage.getItem("list");
-  console.log(list);
 
   if (list) {
     return JSON.parse(localStorage.getItem("list"));
@@ -15,7 +14,7 @@ const GetLocalItems = () => {
 function Todo() {
   const [inputData, setInputData] = useState("");
   const [item, setItem] = useState(GetLocalItems());
-
+  //add item
   const addItem = () => {
     if (!inputData) {
       alert("Please Enter item...");
@@ -24,12 +23,14 @@ function Todo() {
       setInputData("");
     }
   };
+  //delete item
   const deleteItem = (id) => {
     console.log(id);
     const updateditem = item.filter((__, index) => index != id);
     console.log(updateditem);
     setItem(updateditem);
   };
+  // clear all list
   const removeAll = () => {
     setItem([]);
   };
@@ -37,8 +38,6 @@ function Todo() {
   //add data to localstorage
 
   useEffect(() => {
- 
-
     localStorage.setItem("list", JSON.stringify(item));
   }, [item]);
   return (
