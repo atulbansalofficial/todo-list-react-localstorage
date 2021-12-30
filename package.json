@@ -2,7 +2,7 @@
   "name": "todolist",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://atulbansalofficial.github.io/todolistnewreact",
+  "homepage": "https://atulbansalofficial.github.io/todo-list-react-localstorage/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
